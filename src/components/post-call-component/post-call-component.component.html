@@ -1,0 +1,77 @@
+
+<div class="modalAdd" #modalAdd>
+    <div class="modalContent">
+        <div class="modalInput">
+            <label for="userId">UserId:</label>
+            <input type="number" id="userId" [(ngModel)]="newPost.userId">
+        </div>
+        <div class="modalInput">
+            <label for="title">Title:</label>
+            <input type="text" id="title" [(ngModel)]="newPost.title">
+        </div>
+        <div class="modalInput">
+            <label for="body">Body:</label>
+            <input type="text" id="body" [(ngModel)]="newPost.body">
+        </div>
+        <div class="modalActions">
+            <button (click)="savePost()">Guardar</button>
+            <button (click)="cancelSave()">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<div class="modalEdit" #modalEdit>
+    <div class="modalContent">
+        <div class="modalInput">
+            <label for="userId">UserId:</label>
+            <input type="number" id="userId" [(ngModel)]="actualPost.userId">
+        </div>
+        <div class="modalInput">
+            <label for="title">Title:</label>
+            <input type="text" id="title" [(ngModel)]="actualPost.title">
+        </div>
+        <div class="modalInput">
+            <label for="body">Body:</label>
+            <input type="text" id="body" [(ngModel)]="actualPost.body">
+        </div>
+        <div class="modalActions">
+            <button (click)="updatePost()">Guardar</button>
+            <button (click)="cancelUpdate()">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>UserId</th>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Body</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (post of posts; track post.id; let i = $index) {
+        <tr>
+            <td>{{ post.userId }}</td>
+            <td>{{ post.id }}</td>
+            <td>{{ post.title }}</td>
+            <td>{{ post.body }}</td>
+            <td>
+                <div class="actionsDiv">
+                    <button (click)="showEditModal(post)">Editar</button>
+                    <button (click)="removePost(i)">Eliminar</button>
+                </div>
+
+        </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5">
+                <button (click)="showAddModal()">Agregar Post</button>
+            </td>
+        </tr>
+    </tfoot>
+</table>

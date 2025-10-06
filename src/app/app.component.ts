@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { PostCallComponentComponent } from "../components/post-call-component/post-call-component.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, PostCallComponentComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
