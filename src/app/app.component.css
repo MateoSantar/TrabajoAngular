@@ -1,0 +1,50 @@
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #d8dce0;
+    border-bottom: 1px solid #dee2e6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.headerTitle h1 {
+    
+    font-size: 24px;
+    color: #343a40;
+    font-family: Arial, sans-serif;
+    font-style: italic;
+    font-variant: small-caps;
+    letter-spacing: 5px;
+}
+.headerBtns button {
+    padding: 8px 16px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #72869c;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.headerBtns button:hover {
+    background-color: #5a6b7c;
+}
+
+footer{
+    text-align: center;
+    padding: 10px;
+    background-color: #d8dce0;
+    border-top: 1px solid #dee2e6;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    font-family: Arial, sans-serif;
+}
+footer p{
+    margin: 0;
+    color: #343a40;
+    font-size: 14px;
+    font-style: italic;
+    font-variant: small-caps;
+    letter-spacing: 2px;
+}
