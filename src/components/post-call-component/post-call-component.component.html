@@ -1,25 +1,3 @@
-
-<div class="modalAdd" #modalAdd>
-    <div class="modalContent">
-        <div class="modalInput">
-            <label for="userId">UserId:</label>
-            <input type="number" id="userId" [(ngModel)]="newPost.userId">
-        </div>
-        <div class="modalInput">
-            <label for="title">Title:</label>
-            <input type="text" id="title" [(ngModel)]="newPost.title">
-        </div>
-        <div class="modalInput">
-            <label for="body">Body:</label>
-            <input type="text" id="body" [(ngModel)]="newPost.body">
-        </div>
-        <div class="modalActions">
-            <button (click)="savePost()">Guardar</button>
-            <button (click)="cancelSave()">Cancelar</button>
-        </div>
-    </div>
-</div>
-
 <div class="modalEdit" #modalEdit>
     <div class="modalContent">
         <div class="modalInput">
@@ -69,8 +47,14 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="5">
-                <button (click)="showAddModal()">Agregar Post</button>
+            <td><input class="mt-2 p-2 rounded w-100" type="number" id="userId" [(ngModel)]="newPost.userId" placeholder="User Id"></td>
+            <td colspan="1"></td>
+            <td><input class="mt-2 p-2 rounded w-100" type="text" id="title" [(ngModel)]="newPost.title" placeholder="Titulo"></td>
+            <td><input class="mt-2 p-2 rounded w-100" type="text" id="body" [(ngModel)]="newPost.body" placeholder="Cuerpo"></td>
+            <td>
+                <div class="d-flex justify-content-center">
+                    <button (click)="savePost()" class="btn btn-primary">Agregar Post</button>
+                </div>
             </td>
         </tr>
     </tfoot>
