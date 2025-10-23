@@ -32,7 +32,6 @@ export class PostCallComponentComponent implements OnInit {
   }
 
   @ViewChild('modalEdit') editModal!: ElementRef;
-  @ViewChild('modalAdd') addModal!: ElementRef;
   constructor(
     private postCallSevice: PostCallServiceService,
     private renderer: Renderer2
@@ -42,12 +41,6 @@ export class PostCallComponentComponent implements OnInit {
     this.actualPost = { ...post };
     this.currentIndex = this.posts.indexOf(post);
     this.renderer.setStyle(this.editModal.nativeElement, 'display', 'flex');
-  }
-  showAddModal() {
-    this.renderer.setStyle(this.addModal.nativeElement, 'display', 'flex');
-  }
-  cancelSave() {
-    this.renderer.setStyle(this.addModal.nativeElement, 'display', 'none');
   }
 
   cancelUpdate() {
@@ -97,7 +90,6 @@ export class PostCallComponentComponent implements OnInit {
     }
     this.postCallSevice.addPost(this.newPost).subscribe((createdPost) => {
       this.posts.push(createdPost);
-      this.renderer.setStyle(this.addModal.nativeElement, 'display', 'none');
       this.newPost = { id: 0, title: '', body: '', userId: 0 };
     });
   }
