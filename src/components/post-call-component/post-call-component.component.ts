@@ -22,14 +22,21 @@ export class PostCallComponentComponent implements OnInit {
   currentIndex: number = -1;
   maxId: number = 1;
   ngOnInit(): void {
-    this.postCallSevice.getPosts().subscribe((data: Post[]) => {
-      this.posts = data;
-      this.maxId = this.posts.reduce((max, post) => (post.id > max ? post.id : max), 0);
-
-    });
-    
+    this.getPosts();
     
   }
+  getPosts(): void {
+  this.postCallSevice.getPosts().subscribe({
+    next: (data: Post[]) => {
+      this.posts = data;
+      this.maxId = this.posts.reduce((max, post) => (post.id > max ? post.id : max), 0);
+    },
+    error: (err) => {
+      alert('Error al obtener los posts: ' + err);
+      this.posts = [];
+    }
+  });
+}
 
   @ViewChild('modalEdit') editModal!: ElementRef;
   constructor(
@@ -47,25 +54,33 @@ export class PostCallComponentComponent implements OnInit {
     this.renderer.setStyle(this.editModal.nativeElement, 'display', 'none');
   }
 
-  updatePost() {
-    if (
-      !this.actualPost.title ||
-      !this.actualPost.body ||
-      !this.actualPost.userId
-    ) {
-      alert('Por favor, complete todos los campos antes de actualizar.');
-      return;
-    }
-    if (this.actualPost.id <= this.maxId) {
-      this.postCallSevice.putPost(this.actualPost).subscribe((updatedPost) => {
+  updatePost(): void {
+  if (
+    !this.actualPost.title ||
+    !this.actualPost.body ||
+    !this.actualPost.userId
+  ) {
+    alert('Por favor, complete todos los campos antes de actualizar.');
+    return;
+  }
+
+  if (this.actualPost.id <= this.maxId) {
+    this.postCallSevice.putPost(this.actualPost).subscribe({
+      next: (updatedPost) => {
         this.posts[this.currentIndex] = updatedPost;
         this.renderer.setStyle(this.editModal.nativeElement, 'display', 'none');
-      });
-    } else {
-      this.posts[this.currentIndex] = this.actualPost;
-      this.renderer.setStyle(this.editModal.nativeElement, 'display', 'none');
-    }
+      },
+      error: (err) => {
+        console.error('Error al actualizar el post:', err);
+        alert('No se pudo actualizar el post. Inténtelo más tarde.');
+      }
+    });
+  } else {
+    this.posts[this.currentIndex] = this.actualPost;
+    this.renderer.setStyle(this.editModal.nativeElement, 'display', 'none');
   }
+}
+
 
   removePost(postId: number): void {
   if (postId > this.maxId) {
@@ -88,9 +103,19 @@ export class PostCallComponentComponent implements OnInit {
       alert('Por favor, complete todos los campos antes de guardar.');
       return;
     }
-    this.postCallSevice.addPost(this.newPost).subscribe((createdPost) => {
+    if (this.newPost.userId <= 0) {
+      alert('El id del usuario debe ser mayor a 0');
+      return;
+    }
+    this.postCallSevice.addPost(this.newPost).subscribe({
+    next: (createdPost) => {
       this.posts.push(createdPost);
       this.newPost = { id: 0, title: '', body: '', userId: 0 };
-    });
+    },
+    error: (err) => {
+      console.error('Error al guardar el post:', err);
+      alert('No se pudo guardar el post. Inténtelo más tarde.');
+    }
+  });
   }
 }
