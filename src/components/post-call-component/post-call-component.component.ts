@@ -8,7 +8,6 @@ import {
 import { Post } from '../../models/post';
 import { PostCallServiceService } from '../../services/post-call-service.service';
 import { FormsModule } from '@angular/forms';
-import { max } from 'rxjs';
 @Component({
   selector: 'app-post-call-component',
   imports: [FormsModule],
